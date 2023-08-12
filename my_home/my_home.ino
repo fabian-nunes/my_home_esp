@@ -11,18 +11,18 @@
 DHT dht(DHTPIN, DHTTYPE); // Instanciar e declarar a class DHT
 
 WiFiUDP clienteUDP;
-char NTP_SERVER[] = "0.pool.ntp.org";
+const char NTP_SERVER[] = "0.pool.ntp.org";
 NTPClient clienteNTP(clienteUDP, NTP_SERVER, 3600);
 
-char SSID[] = "";
-char PASS_WIFI[] = ""; 
+const char SSID[] = "MEO-CF2AC3_EXT";
+const char PASS_WIFI[] = "4D1FBE680D"; 
 
 WiFiClient clienteWifi;
 HTTPClient clienteHTTP;
-char URL_API_POST[] = "http://192.168.1.202:5000/api/sensor/data";
-char CONTENT_TYPE[] = "application/json";
+const char URL_API_POST[] = "http://192.168.1.200:5000/api/sensor/data";
+const char CONTENT_TYPE[] = "application/json";
 
-char JWT_TOKEN[] = "";
+const char JWT_TOKEN[] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVzcEBtYWlsLmNvbSJ9.OUXvO51sKYVcst8TcBkbF82hkfRlwFo7fzGW-BFXfM8";
 
 void setup() {
   // put your setup code here, to run once:
@@ -79,6 +79,7 @@ void post2API(String name, String value, String hour){
   }else{
     Serial.print("Error when executing the POST request: ");
     Serial.println(status_code);
+    Serial.println(clienteHTTP.getString());
   }
 
   clienteHTTP.end();
@@ -96,6 +97,7 @@ void loop() {
 
   // Check if the current hour is between 9 and 18 (inclusive)
   if (currentHour >= 9 && currentHour <= 18) {
+
     //Read humidity as %
     float humidity = dht.readHumidity();
     float temperature = dht.readTemperature();
@@ -119,6 +121,6 @@ void loop() {
     Serial.println("Work day ended go to sleep!");
   }
 
-  Serial.println("Going to sleep for 15 minutes to not kill dht")
+  Serial.println("Going to sleep for 15 minutes to not kill dht");
   delay (900000);
 }
