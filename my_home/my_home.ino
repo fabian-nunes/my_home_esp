@@ -11,7 +11,7 @@
 DHT dht(DHTPIN, DHTTYPE); // Instanciar e declarar a class DHT
 
 WiFiUDP clienteUDP;
-const char NTP_SERVER[] = "0.pool.ntp.org";
+char NTP_SERVER[] = "0.pool.ntp.org";
 NTPClient clienteNTP(clienteUDP, NTP_SERVER, 3600);
 
 const char SSID[] = "MEO-CF2AC3_EXT";
